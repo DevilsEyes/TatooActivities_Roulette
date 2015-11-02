@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script src="static/lib/wxAuth.js"></script>
+    <link href="static/css/inahoo.css" rel="stylesheet">
+    <link href="static/css/style.css" rel="stylesheet">
+    <link href="static/css/Roulette.css" rel="stylesheet">
+    <script src="static/lib/dev.min.js"></script>
+    <script src="static/lib/jquery.transit.js"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+</head>
+<body>
+<div>
+    <div id="roulette">
+        <img id="roulette-chassis" src="static/img/Roulette_chassis_2.png">
+        <img id="roulette-content" src="static/img/Roulette_content.png">
+        <img id="roulette-bright" src="static/img/Roulette_brightness.png">
+        <img id="roulette-bright2" src="static/img/Roulette_brightness.png">
+        <img id="roulette-start" src="static/img/Roulette_start.png">
+    </div>
+
+    <button>谢谢</button>
+    <button>纹身手稿</button>
+    <button>小礼品</button>
+    <button>T恤</button>
+</div>
+<script>
+
+    var Roulette = (function () {
+
+        var $o,$l,$l2;
+
+        var spin = {
+            timer: null,
+            normal: function () {
+                $o.transit({rotate: '360deg'}, 5000, 'linear', function () {
+                    $o.css({rotate: '0deg'});
+                });
+            },
+            end: function (value) {
+                clearInterval(spin.timer);
+                var target;
+                switch (value) {
+                    case 0://谢谢
+                        return $o.transit({rotate: 235 + 'deg'}, 4000, 'ease-out');
+                    case 1://手稿
+                        return $o.transit({rotate: 360 + 19 + 'deg'}, 6000, 'ease-out');
+                    case 2://礼品
+                        return $o.transit({rotate: 163 + 'deg'}, 3500, 'ease-out');
+                    case 3://T恤
+                        return $o.transit({rotate: 91 + 'deg'}, 2000, 'ease-out');
+                    case 4://代金券
+                        target = 288;
+                        break;
+                }
+
+            }
+        };
+
+        return {
+            spin: function (mod) {
+                switch (mod) {
+                    case 'start':
+                    {
+                        clearInterval(spin.timer);
+                        spin.normal();
+                        return spin.timer = setInterval(spin.normal, 5000);
+                    }
+                    case '0':
+                    {
+                        return spin.end(0);
+                    }
+                    case '1':
+                    {
+                        return spin.end(1);
+                    }
+                    case '2':
+                    {
+                        return spin.end(2);
+                    }
+                    case '3':
+                    {
+                        return spin.end(3);
+                    }
+                }
+            },
+            init:function(){
+                $o = $('#roulette-content');
+                $l = $('#roulette-bright');
+                $l2 = $('#roulette-bright2');
+            }
+        };
+    })();
+
+    Roulette.init();
+    $('button').hide();
+    $('#roulette-start').click(function () {
+        Roulette.spin('start');
+        $('button').show();
+    });
+    $('button:eq(0)').click(function () {
+        $('button').hide();
+        Roulette.spin('0')
+    });
+    $('button:eq(1)').click(function () {
+        $('button').hide();
+        Roulette.spin('1')
+    });
+    $('button:eq(2)').click(function () {
+        $('button').hide();
+        Roulette.spin('2')
+    });
+    $('button:eq(3)').click(function () {
+        $('button').hide();
+        Roulette.spin('3')
+    });
+</script>
+</body>
+</html>

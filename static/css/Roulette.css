@@ -1,0 +1,30 @@
+#roulette{
+    width: 320px;
+    height: 320px;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+}
+
+#roulette>img{
+    width: 320px;
+    height: 320px;
+    position: absolute;
+}
+
+#roulette-content{
+    
+    transform:rotate(0deg);
+    -ms-transform:rotate(0deg); 	/* IE 9 */
+    -moz-transform:rotate(0deg); 	/* Firefox */
+    -webkit-transform:rotate(0deg); /* Safari ºÍ Chrome */
+    -o-transform:rotate(0deg);
+}
+
+#roulette-bright{
+    transform:rotate(0deg);
+    -ms-transform:rotate(0deg); 	/* IE 9 */
+    -moz-transform:rotate(0deg); 	/* Firefox */
+    -webkit-transform:rotate(0deg); /* Safari ºÍ Chrome */
+    -o-transform:rotate(0deg);
+}
