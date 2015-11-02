@@ -123,12 +123,9 @@
                     spin.timer = setInterval(spin.finish, T);
                 };
                 var time = 6500;
-                var offset = 1800;
-                var swing = 'cubic-bezier(.15,.6,.15,1.15)';
+                var offset = 1800 + Math.random()*100-50;
+                var swing = 'cubic-bezier(.15,.6,.15,1.03)';
 
-//                var time = 3500;
-//                var offset = 1440;
-                //        var swing = 'cubic-bezier(.31,.61,.5,1.06)';
                 switch (value) {
                     case 0://谢谢
                         return $o.transit({rotate: offset - 235 + 'deg'}, time,swing, callback);
