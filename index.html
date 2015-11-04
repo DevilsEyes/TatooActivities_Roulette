@@ -122,33 +122,22 @@
     </div>
 </script>
 
-<script>
-
-
-    Roulette.init();
-    $('button').hide();
-
-    $('#roulette-start').click(function () {
-        Roulette.spin('start');
-        $('button').show();
-    });
-
-    $('button:eq(0)').click(function () {
-        $('button').hide();
-        Roulette.spin('0')
-    });
-    $('button:eq(1)').click(function () {
-        $('button').hide();
-        Roulette.spin('1')
-    });
-    $('button:eq(2)').click(function () {
-        $('button').hide();
-        Roulette.spin('2')
-    });
-    $('button:eq(3)').click(function () {
-        $('button').hide();
-        Roulette.spin('3')
-    });
+<script type="text/template" data-page="PTest" data-role="page">
+    <div id="PTest" class="bg">
+        <fieldset>
+            <legend>URL</legend>
+            ${url}
+        </fieldset>
+        <fieldset>
+            <legend>DATA</legend>
+            ${data}
+        </fieldset>
+        <fieldset>
+            <legend>RESPONSE</legend>
+            No response
+        </fieldset>
+    </div>
 </script>
+
 </body>
 </html>
