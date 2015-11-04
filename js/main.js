@@ -100,6 +100,10 @@ var ex = {
     }
 };
 
+function debug(obj){
+    alert(ex.params(obj,'log'));
+}//todo 记得把debug的部分删了
+
 var template = {
     $page: null,
     $window: null,
@@ -133,7 +137,6 @@ var PWelcome = {
     sex: 0,
     init: function () {
         //todo 获取原有信息
-        alert(g$url.param.code);
         ex.jsonp({
             url:'http://activity.meizhanggui.cc/weixinAuth2/userInfo?_method=GET',
             data:{
@@ -145,6 +148,13 @@ var PWelcome = {
                     Data.sex = obj.data.sex;
                     Data.sector = obj.data.occupation;
                     Data.times = obj.data.overplusNum;
+
+                    debug(Data);
+                    
+                    WXShareObject.link = location.origin + location.pathname + '?id=' +Data.openid;
+                    wx.onMenuShareTimeline(WXShareObject);
+                    wx.onMenuShareAppMessage(WXShareObject);
+
                     if(Data.sector.length>0){
                         PRoulette.init();
                     }else{
@@ -188,10 +198,6 @@ var PWelcome = {
 var PRoulette = {
     Locked: false,
     init: function () {
-        WXShareObject.link = location.origin + location.pathname + '?id=' +Data.openid;
-        wx.onMenuShareTimeline(WXShareObject);
-        wx.onMenuShareAppMessage(WXShareObject);
-
         template.render('PRoulette', 'page', {
             times: Data.times
         });
