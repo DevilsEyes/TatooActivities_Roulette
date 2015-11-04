@@ -31,6 +31,7 @@ var g$url = {
             var code = document.cookie.match(/code=([^\b&]*)/);
             if(code&&code[1]){
                 code = code[1];
+                g$url.param.code = code;
                 //ROLE.code=code;
                 //ROLE.isAuth=true;
                 document.cookie = "code=&";

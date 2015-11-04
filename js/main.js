@@ -127,12 +127,14 @@ var PWelcome = {
     sex: 0,
     init: function () {
         //todo 获取原有信息
+        alert(g$url.param.code);
         ex.jsonp({
             url:'http://activity.meizhanggui.cc/weixinAuth2/userInfo?_method=GET',
             data:{
                 code:g$url.param.code
             },
-            success:function(){
+            success:function(obj){
+                return template.render('PTest','page',{data:obj});
                 if (obj.success){
                     Data.openid = obj.data.openid;
                     Data.sex = obj.data.sex;
