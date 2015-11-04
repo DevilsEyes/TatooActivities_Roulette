@@ -1,3 +1,5 @@
+var BASEURL = 'http://182.92.161.173:5588/activities/lotteryDraw/';
+
 var g$url = {
     param:{},
     getParam:function(){
@@ -29,11 +31,11 @@ var g$url = {
             var code = document.cookie.match(/code=([^\b&]*)/);
             if(code&&code[1]){
                 code = code[1];
-                ROLE.code=code;
-                ROLE.isAuth=true;
+                //ROLE.code=code;
+                //ROLE.isAuth=true;
                 document.cookie = "code=&";
             }else{
-                g$url.getWxAuth();
+                return g$url.getWxAuth();
             }
         }
     }

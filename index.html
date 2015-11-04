@@ -2,177 +2,137 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title></title>
+    <title>这是有纹身的人必挺的一件事</title>
     <meta name="viewport"
           content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <!--<script src="static/lib/wxAuth.js"></script>-->
+    <script src="static/lib/wxAuth.js"></script>
     <link href="static/css/inahoo.css" rel="stylesheet">
     <link href="static/css/style.css" rel="stylesheet">
     <link href="static/css/Roulette.css" rel="stylesheet">
     <script src="static/lib/dev.min.js"></script>
     <script src="static/lib/jquery.transit.js"></script>
-    <!--<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>-->
-    <!--<script src="static/lib/wxCongfig.js"></script>-->
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script src="static/lib/wxCongfig.js"></script>
+    <script src="js/widget.js"></script>
+    <script src="js/main.js"></script>
 </head>
 <body>
-<div>
-    <div id="roulette">
-        <img id="roulette-chassis" src="static/img/Roulette_chassis_2.png">
-        <img id="roulette-light_orange" src="static/img/Roulette_light_orange.png">
-        <img id="roulette-light_white" src="static/img/Roulette_light_white.png">
-        <img id="roulette-start" src="static/img/Roulette_start.png">
-    </div>
 
-    <button>谢谢</button>
-    <button>纹身手稿</button>
-    <button>小礼品</button>
-    <button>T恤</button>
+<div id="share">
+    <img src="static/img/share.png"/>
+</div>
+
+<div id="page">
 
 </div>
+
+<div id="window">
+
+</div>
+
+<script type="text/template" data-page="WNoAward" data-role="window">
+    <div id="WNoAward" class="dialog">
+        <button>分享再获得一次抽奖机会</button>
+    </div>
+</script>
+
+<script type="text/template" data-page="WShare" data-role="window">
+    <div id="WShare" class="dialog">
+        <h4>分享成功!</h4>
+        <p>您现在有<span>${times}</span>次抽奖机会了!</p>
+        <button>知道了</button>
+    </div>
+</script>
+
+<script type="text/template" data-page="WAward" data-role="window">
+    <div id="WAward" class="dialog">
+        <div class="info">您获得了<br>${award}</div>
+        <div class="tel">
+            <label>+86</label>
+            <input type="tel" maxlength="11" placeholder="输入电话号码">
+        </div>
+        <button style="width: 200px;">完成</button>
+    </div>
+</script>
+
+<script type="text/template" data-page="PWelcome" data-role="page">
+    <div id="PWelcome" class="bg">
+        <h1>这是有纹身的人必挺的一件事</h1>
+
+        <p>
+            既然纹身，我们就要承受异样的目光，并去接受这样的质疑。<br>
+            当一个有纹身的医生脱下衣服，他只是承担了一种文化，和他的职业无关。你和我在纹身的时候都选择了承担
+        </p>
+
+        <h3>
+            而我是一名${sex|transSex}${sector}，我力挺!
+        </h3>
+
+        <form>
+            <div class="form-sector">
+                <span>你是</span>
+                <input type="text" maxlength="8" placeholder="输入您的职业">
+                <span>?</span>
+            </div>
+            <div class="form-sex">
+                <div>性别选择:</div>
+                <div class="sex-male"><span>男性</span><img src="static/img/male_dark.png"></div>
+                <div class="sex-famale"><span>女性</span><img src="static/img/famale_dark.png"></div>
+            </div>
+        </form>
+        <button>力挺即可抽奖!</button>
+        <div class="wolf">
+            <div class="scroller">
+            </div>
+        </div>
+    </div>
+</script>
+
+<script type="text/template" data-page="PRoulette" data-role="page">
+    <div id="PRoulette" class="bg">
+        <div class="times">
+            <div>你有${times}次抽奖机会</div>
+        </div>
+
+        <div id="roulette">
+            <img id="roulette-chassis" src="static/img/Roulette_chassis_2.png">
+            <img id="roulette-light_orange" src="static/img/Roulette_light_orange.png">
+            <img id="roulette-light_white" src="static/img/Roulette_light_white.png">
+            <img id="roulette-start" src="static/img/Roulette_start.png">
+        </div>
+
+        <div class="bottom">
+            <div class="scroller">
+            </div>
+        </div>
+    </div>
+</script>
+
+<script type="text/template" data-page="PLucky" data-role="page">
+    <div id="PLucky" class="bg">
+            <img src="static/img/coffee.png">
+
+            <p>恭喜您中奖！<br>
+                请您安心等待我们与您联系。</p>
+            <br>
+
+            <p>分享到朋友圈<br>
+                可以再获得一次抽奖机会哦！</p>
+
+    </div>
+</script>
+
 <script>
 
-    var Roulette = (function () {
-
-        var T = 300;
-        var $o, $lw, $lo;
-        var count = 0;
-
-        var spin = {
-            isSpin: false,
-            timer: null,
-            ready: function () {
-                count++;
-                switch (count) {
-                    case 1:
-                    {
-                        $lw.transit({opacity: 1}, T);
-                        $lo.transit({opacity: 0}, T);
-                        return
-                    }
-                    case 2:
-                    {
-                        $lw.transit({opacity: 0}, T);
-                        $lo.transit({opacity: 1}, T);
-                        count = 0;
-                        return
-                    }
-                }
-            },
-            first:function(){
-                if(spin.isSpin)return;
-                clearInterval(spin.timer);
-                spin.isSpin = true;
-                console.log($o);
-                $o.transit({
-                    scale:0.7,
-                    rotate:'120deg'
-                },50,'linear').transit({
-                    scale:1,
-                    rotate:'240deg'
-                },100,'linear',function(){
-                    $o.css({rotate: '0deg'});
-                    spin.normal();
-                    return spin.timer = setInterval(spin.normal, T);
-                });
-            },
-            normal: function () {
-                if (spin.isSpin) {
-                    $o.transit({rotate: '360deg'}, T, 'linear', function () {
-                        $o.css({rotate: '0deg'});
-                    });
-                }
-                count++;
-                switch (count) {
-                    case 1:
-                    {
-                        $lw.transit({opacity: 1}, T);
-                        $lo.transit({opacity: 0}, T);
-                        return
-                    }
-                    case 2:
-                    {
-                        $lw.transit({opacity: 0}, T);
-                        $lo.transit({opacity: 1}, T);
-                        count = 0;
-                        return
-                    }
-                }
-            },
-            finish: function () {
-                count++;
-                switch (count) {
-                    case 1:
-                    {
-                        $lo.transit({opacity: 0}, T);
-                        $lw.transit({opacity: 0}, T);
-                        return
-                    }
-                    case 2:
-                    {
-                        $lo.transit({opacity: 1}, T);
-                        $lw.transit({opacity: 1}, T);
-                        count = 0;
-                        return
-                    }
-                }
-            },
-            end: function (value) {
-                spin.isSpin = false;
-                var callback = function () {
-                    clearInterval(spin.timer);
-                    spin.timer = setInterval(spin.finish, T);
-                };
-                var time = 6500;
-                var offset = 1800 + Math.random()*100-50;
-                var swing = 'cubic-bezier(.15,.6,.15,1.03)';
-
-                switch (value) {
-                    case 0://谢谢
-                        return $o.transit({rotate: offset - 235 + 'deg'}, time,swing, callback);
-                    case 1://手稿
-                        return $o.transit({rotate: offset - 19 + 'deg'}, time,swing, callback);
-                    case 2://礼品
-                        return $o.transit({rotate: offset - 163 + 'deg'}, time,swing, callback);
-                    case 3://T恤
-                        return $o.transit({rotate: offset - 91 + 'deg'}, time,swing, callback);
-                    case 4://代金券
-                        return $o.transit({rotate: offset - 288 + 'deg'}, time,swing, callback);
-                }
-            }
-        };
-
-        return {
-            spin: function (mod) {
-                switch (mod) {
-                    case 'start':
-                        return spin.first();
-                    case '0':
-                        return spin.end(0);
-                    case '1':
-                        return spin.end(1);
-                    case '2':
-                        return spin.end(2);
-                    case '3':
-                        return spin.end(3);
-                    case '4':
-                        return spin.end(4);
-                }
-            },
-            init: function () {
-                $o = $('#roulette-start');
-                $lw = $('#roulette-light_white');
-                $lo = $('#roulette-light_orange');
-                spin.timer = setInterval(spin.ready, 3 * T);
-            }
-        };
-    })();
 
     Roulette.init();
     $('button').hide();
+
     $('#roulette-start').click(function () {
         Roulette.spin('start');
         $('button').show();
     });
+
     $('button:eq(0)').click(function () {
         $('button').hide();
         Roulette.spin('0')

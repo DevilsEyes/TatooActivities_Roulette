@@ -1,3 +1,304 @@
 html{
     background-color: #111111;
 }
+
+#share{
+    z-index: 99999;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.2);
+    display: none;
+}
+
+#share img{
+    width: 100%;
+}
+
+#PWelcome{
+    background:url("../img/BG1.png") top;
+    background-size: cover;
+    color: white;
+    position: relative;
+}
+
+#PWelcome h1{
+    padding: 20px 0;
+    text-align: center;
+    font-size: 22px;
+}
+
+#PWelcome p{
+    padding:0 20px;
+    line-height: 27px;
+    font-size: 14px;
+}
+
+#PWelcome h3{
+    padding: 10px 0;
+    text-align: center;
+    font-size: 18px;
+    color: #ffba00;
+    font-weight: normal;
+}
+
+#PWelcome form{
+    display: block;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+#PWelcome .form-sector span{
+    font-size: 18px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+#PWelcome .form-sector input[type=text]{
+    display: inline-block;
+    vertical-align: middle;
+    background: transparent;
+    border: none;
+    border-bottom: solid 1px white;
+    padding: 0 5px 5px 5px;
+    border-radius: 0;
+    font-size: 18px;
+    color: white !important;
+    text-align: center;
+}
+
+#PWelcome .form-sector input[placeholder]{
+    font-size: 18px;
+    font-family: '黑体',sans-serif;
+    color: #848484;
+}
+
+#PWelcome .form-sex>div{
+    font-size: 14px;
+    padding: 10px 8px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+#PWelcome .form-sex>div>*{
+    display: inline-block;
+    vertical-align: middle;
+}
+
+#PWelcome .sex-male,#PWelcome .sex-famale{
+    color: #888888;
+}
+
+#PWelcome .sex-male.active{
+    color: #7fd2dc;
+}
+
+#PWelcome .sex-famale.active{
+    color: #eda0a0;
+}
+
+#PWelcome .form-sex img{
+    width: 30px;
+    height: 30px;
+    padding: 5px 8px;
+}
+
+button{
+    display: block;
+    font-size: 18px;
+    color: black;
+    background-color: #ffba00;
+    border-radius: 4px;
+    padding: 10px 20px;
+    margin: auto;
+    position: relative;
+    z-index: 2;
+}
+
+#PWelcome .wolf{
+    width: 100%;
+    height: 40%;
+    position: fixed;
+    bottom: 0;
+    background: url("../img/wolf.png") no-repeat top;
+    background-size: cover;
+    z-index: 1;
+}
+
+#PWelcome .scroller{
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    top: 150px;
+    height: 30px;
+    text-align: center;
+    color: #eaa064;
+}
+
+#PWelcome .scroller>div{
+    top: 0;
+    position: relative;
+    height: 30px;
+}
+
+#PRoulette{
+    background:url("../img/Bigwolf.png") 0 20px no-repeat;
+    background-size: cover;
+    color: white;
+    position: relative;
+}
+
+#PRoulette #roulette{
+    top:80px;
+}
+
+#PRoulette .bottom{
+    position: fixed;
+    bottom: 10px;
+    width: 100%;
+}
+
+#PRoulette .scroller{
+    text-align: center;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    height: 30px;
+    color: #eaa064;
+}
+
+#PRoulette .scroller>div{
+    top: 0;
+    position: relative;
+    height: 30px;
+}
+
+#PRoulette .times{
+    text-align: center;
+    margin: 10px;
+}
+
+#PRoulette .times>div{
+    display: inline-block;
+    background: url("../img/gra.png") repeat-y;
+    background-size: contain;
+    padding: 3px 10px 4px 10px;
+    color: #ffb33a;
+}
+
+#window{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0,0,0,0.1);
+    z-index: 99;
+    text-align: center;
+}
+
+#window::after{
+    content: '';
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
+}
+
+#window .dialog{
+    display: inline-block;
+    vertical-align: middle;
+    background-color: white;
+    border: solid 6px #dcdcdc;
+    border-top: none;
+    width: 280px;
+}
+
+#WNoAward{
+    background: url("../img/windowBG_1.png") no-repeat center 20px;
+    background-size: 50%;
+    padding: 120px 0 20px 0;
+}
+
+#WAward{
+    background: url("../img/windowBG_2.png") no-repeat center 130px;
+    background-size: 95%;
+    padding: 0 0 20px 0;
+}
+
+#WAward>.info{
+    background: url("../img/Lucky.png") no-repeat center 10px;
+    background-size: 90%;
+    padding: 66px 0 80px 146px;
+    color: #ff5400;
+    font-size: 14px;
+    text-align: left;
+}
+#WAward div.tel{
+    border: solid 1px #d8d8d8;
+    border-radius: 4px;
+    margin: 10px 10px 30px 10px;
+    padding: 10px 0;
+}
+
+#WAward label{
+    font-size: 16px;
+    color: #797979;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+#WAward input[type=tel]{
+    display: inline-block;
+    vertical-align: middle;
+    background: transparent;
+    border: none;
+    padding-left: 10px;
+    font-size: 16px;
+    color: #797979 !important;
+    text-align: left;
+}
+
+#WAward input[placeholder]{
+    font-size: 16px;
+    font-family: '黑体',sans-serif;
+    color: #bfbfbf;
+}
+
+#PLucky{
+    background-color: white;
+    text-align: center;
+}
+
+#PLucky img{
+    padding-top: 100px;
+    width: 50%;
+}
+
+#PLucky p{
+    color: #f6ae00;
+    font-size: 18px;
+    line-height: 30px;
+}
+
+#WShare{
+    text-align: center;
+    padding: 20px 0;
+}
+
+#WShare h4{
+    color: #ff5400;
+    font-size: 24px;
+    padding: 3px 0;
+}
+
+#WShare p{
+    color: #797979;
+    font-size: 14px;
+    padding: 5px 0 20px 0;
+}
+
+#WShare span{
+    color: #f6ae00;
+}

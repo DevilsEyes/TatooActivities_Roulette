@@ -1,5 +1,5 @@
 window.addEventListener('load', function () {
-    FastClick.attach(document.body);
+    //FastClick.attach(document.body);
     if(Config.isWX)WX.init();
 }, false);
 
@@ -31,8 +31,8 @@ WX = {
         $.ajax({
             url: "http://182.92.161.173:5588/weixinAuth2?url=" + wxUrl,
             dataType: "jsonp",
-            jsonp: "callback", //´«µİ¸øÇëÇó´¦Àí³ÌĞò»òÒ³ÃæµÄ£¬ÓÃÒÔ»ñµÃjsonp»Øµ÷º¯ÊıÃûµÄ²ÎÊıÃû(Ä¬ÈÏÎª:callback)
-            jsonpCallback: "success_jsonpCallback", //×Ô¶¨ÒåµÄjsonp»Øµ÷º¯ÊıÃû³Æ£¬Ä¬ÈÏÎªjQuery×Ô¶¯Éú³ÉµÄËæ»úº¯ÊıÃû
+            jsonp: "callback", //ä¼ é€’ç»™è¯·æ±‚å¤„ç†ç¨‹åºæˆ–é¡µé¢çš„ï¼Œç”¨ä»¥è·å¾—jsonpå›è°ƒå‡½æ•°åçš„å‚æ•°å(é»˜è®¤ä¸º:callback)
+            jsonpCallback: "success_jsonpCallback", //è‡ªå®šä¹‰çš„jsonpå›è°ƒå‡½æ•°åç§°ï¼Œé»˜è®¤ä¸ºjQueryè‡ªåŠ¨ç”Ÿæˆçš„éšæœºå‡½æ•°å
             type: "GET",
             async: false,
             beforeSend: function () {
