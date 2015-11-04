@@ -169,6 +169,13 @@ var PWelcome = {
                                     sex: Data.oldSex,
                                     sector: Data.oldSector
                                 });
+                                var $h = ($(window).height() - 480)/150;
+                                if($h<0)$h=0;
+                                $('h1').css({'padding-bottom':$h*10+20});
+                                $('p').css({'padding-bottom':$h*10});
+                                $('h3').css({'padding-bottom':$h*10+10});
+                                $('form-sector').css({'padding-bottom':$h*10+10});
+                                $('form-sex').css({'padding-bottom':$h*10+10});
                                 $('.sex-male').click(PWelcome.E_SexMaleSelect);
                                 $('.sex-famale').click(PWelcome.E_SexFamaleSelect);
                                 $('button').click(PWelcome.E_SendInfo);
@@ -212,6 +219,9 @@ var PRoulette = {
         });
         Scroller.init('.scroller');
         Roulette.init().click(PRoulette.start);
+        var $h = ($(window).height() - 480)/150;
+        if($h<0)$h=0;
+        $('#roulette').css({bottom:$h*100+30});
     },
     start: function () {
         //debug(Data);

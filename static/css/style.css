@@ -154,10 +154,6 @@ button{
     position: relative;
 }
 
-#PRoulette #roulette{
-    top:80px;
-}
-
 #PRoulette .bottom{
     position: fixed;
     bottom: 10px;
