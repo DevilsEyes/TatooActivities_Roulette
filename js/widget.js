@@ -116,7 +116,7 @@ var Roulette = (function () {
 
     return {
         spin: function (mod,next) {
-            switch (mod) {
+            switch (''+mod) {
                 case 'start':
                     return spin.first();
                 case '0':
@@ -136,6 +136,7 @@ var Roulette = (function () {
             $lw = $('#roulette-light_white');
             $lo = $('#roulette-light_orange');
             spin.timer = setInterval(spin.ready, 3 * T);
+            return $o;
         }
     };
 })();

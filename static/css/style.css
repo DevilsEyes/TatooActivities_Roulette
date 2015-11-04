@@ -117,6 +117,10 @@ button{
     z-index: 2;
 }
 
+.dialog button{
+    display: inline-block !important;
+}
+
 #PWelcome .wolf{
     width: 100%;
     height: 40%;
@@ -130,8 +134,8 @@ button{
 #PWelcome .scroller{
     width: 100%;
     overflow: hidden;
-    position: relative;
-    top: 150px;
+    position: fixed;
+    bottom: 20px;
     height: 30px;
     text-align: center;
     color: #eaa064;
@@ -282,12 +286,12 @@ button{
     line-height: 30px;
 }
 
-#WShare,#WNoChance{
+#WShare,#WNoChance,#WOver{
     text-align: center;
     padding: 20px 0;
 }
 
-#WShare h4,#WNoChance h4{
+#WShare h4,#WNoChance h4,#WOver h4{
     color: #ff5400;
     font-size: 24px;
     padding: 3px 0;

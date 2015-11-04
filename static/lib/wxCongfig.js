@@ -10,7 +10,7 @@ WX = {
         var wxUrl = encodeURIComponent(location.href.split('#')[0]),
             config = function (appId, timestamp, nonceStr, signature) {
                 wx.config({
-                    debug: true,
+                    debug: false,
                     appId: appId,
                     timestamp: timestamp,
                     nonceStr: nonceStr,

@@ -7,7 +7,7 @@
           content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <script src="static/lib/wxAuth.js"></script>
     <link href="static/css/inahoo.css" rel="stylesheet">
-    <link href="static/css/style.css" rel="stylesheet">
+    <link href="static/css/style.css?2" rel="stylesheet">
     <link href="static/css/Roulette.css" rel="stylesheet">
     <script src="static/lib/dev.min.js"></script>
     <script src="static/lib/jquery.transit.js"></script>
@@ -40,7 +40,7 @@
     <div id="WShare" class="dialog">
         <h4>分享成功!</h4>
 
-        <p>您现在有<span>${times}</span>次抽奖机会了!</p>
+        <p>您现在有<span>${time}</span>次抽奖机会了!</p>
         <button>知道了</button>
     </div>
 </script>
@@ -53,9 +53,15 @@
     </div>
 </script>
 
+<script type="text/template" data-page="WOver" data-role="window">
+    <div id="WOver" class="dialog">
+        <h4>您超过最大抽奖次数啦!</h4>
+    </div>
+</script>
+
 <script type="text/template" data-page="WAward" data-role="window">
     <div id="WAward" class="dialog">
-        <div class="info">您获得了<br>${award}</div>
+        <div class="info">您获得了<br>${awardStr}</div>
         <div class="tel">
             <label>+86</label>
             <input type="tel" maxlength="11" placeholder="输入电话号码">

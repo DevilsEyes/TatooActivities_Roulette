@@ -29,17 +29,17 @@ var ex = {
             success: function (data) {
                 if (typeof data == 'string')data = $.parseJSON(data);
                 //if(obj.debug){
-                    alert(ex.params(data,'log'));
+                //alert(ex.params(data, 'log'));
                 //}
                 obj.success(data);
             },
             error: obj.error ? obj.error : function () {
                 layer.msg('您的网络连接不太顺畅哦!');
                 //if(obj.debug){
-                    template.render('PTest','page',{
-                        url:obj.url,
-                        data:ex.params(obj.data,'html')
-                    });
+                template.render('PTest', 'page', {
+                    url: obj.url,
+                    data: ex.params(obj.data, 'html')
+                });
                 //}
 
             },
@@ -100,8 +100,8 @@ var ex = {
     }
 };
 
-function debug(obj){
-    alert(ex.params(obj,'log'));
+function debug(obj) {
+    alert(ex.params(obj, 'log'));
 }//todo 记得把debug的部分删了
 
 var template = {
@@ -134,40 +134,49 @@ var Data = {};
 
 var PWelcome = {
     Locked: false,
-    sex: 0,
     init: function () {
-        //todo 获取原有信息
         ex.jsonp({
-            url:'http://activity.meizhanggui.cc/weixinAuth2/userInfo?_method=GET',
-            data:{
-                code:g$url.param.code
+            url: 'http://activity.meizhanggui.cc/weixinAuth2/userInfo?_method=GET',
+            data: {
+                code: location.hash.substr(1)
             },
-            success:function(obj){
-                if (obj.success){
-                    Data.openid = obj.data.openid;
-                    Data.sex = obj.data.sex;
-                    Data.sector = obj.data.occupation;
-                    Data.times = obj.data.overplusNum;
+            success: function (obj) {
 
-                    debug(Data);
+                Data.oldSex = obj.data.sex;
+                Data.oldSector = obj.data.occupation;
 
-                    WXShareObject.link = location.origin + location.pathname + '?id=' +Data.openid;
-                    wx.onMenuShareTimeline(WXShareObject);
-                    wx.onMenuShareAppMessage(WXShareObject);
+                ex.jsonp({
+                    url: 'http://activity.meizhanggui.cc/weixinAuth2/userInfo?_method=GET',
+                    data: {
+                        code: g$url.param.code
+                    },
+                    success: function (obj) {
 
-                    if(Data.sector.length>0){
-                        PRoulette.init();
-                    }else{
-                        template.render('PWelcome', 'page', {
-                            sex: Data.sex,
-                            sector: Data.sector
-                        });
-                        $('.sex-male').click(PWelcome.E_SexMaleSelect);
-                        $('.sex-famale').click(PWelcome.E_SexFamaleSelect);
-                        $('button').click(PWelcome.E_SendInfo);
-                        Scroller.init('.scroller');
+                        if (obj.success) {
+                            Data.openid = obj.data.openid;
+                            Data.sex = obj.data.sex;
+                            Data.sector = obj.data.occupation;
+                            Data.times = obj.data.overplusNum;
+
+                            WXShareObject.link = location.origin + location.pathname + location.search + location.hash;
+                            wx.onMenuShareTimeline(WXShareObject);
+                            wx.onMenuShareAppMessage(WXShareObject);
+
+                            if (Data.sector.length > 0) {
+                                PRoulette.init();
+                            } else {
+                                template.render('PWelcome', 'page', {
+                                    sex: Data.oldSex,
+                                    sector: Data.oldSector
+                                });
+                                $('.sex-male').click(PWelcome.E_SexMaleSelect);
+                                $('.sex-famale').click(PWelcome.E_SexFamaleSelect);
+                                $('button').click(PWelcome.E_SendInfo);
+                                Scroller.init('.scroller');
+                            }
+                        }
                     }
-                }
+                });
             }
         });
     },
@@ -176,20 +185,19 @@ var PWelcome = {
         $('.sex-famale').removeClass('active');
         $('.sex-male img').attr('src', 'static/img/male_light.png');
         $('.sex-famale img').attr('src', 'static/img/famale_dark.png');
-        this.sex = 2;
+        Data.sex = 2;
     },
     E_SexFamaleSelect: function () {
         $('.sex-famale').addClass('active');
         $('.sex-male').removeClass('active');
         $('.sex-famale img').attr('src', 'static/img/famale_light.png');
         $('.sex-male img').attr('src', 'static/img/male_dark.png');
-        this.sex = 1;
+        Data.sex = 1;
     },
     E_SendInfo: function () {
         var sector = $('.form-sector input').val();
         if (!sector)return layer.msg('请输入您的职业!');
-        if (this.sex)return layer.msg('请选择性别!');
-        Data.sex = this.sex;
+        if (Data.sex == 0)return layer.msg('请选择性别!');
         Data.sector = sector;
         PRoulette.init();
     }
@@ -197,39 +205,58 @@ var PWelcome = {
 
 var PRoulette = {
     Locked: false,
+    isSpin: false,
     init: function () {
         template.render('PRoulette', 'page', {
             times: Data.times
         });
         Scroller.init('.scroller');
-        Roulette.init();
+        Roulette.init().click(PRoulette.start);
     },
     start: function () {
-        if (times == 0)return layer.msg('您已经没有抽奖机会了哦~分享到朋友圈可以增加一次抽奖机会!');
+        //debug(Data);
+        if (PRoulette.isSpin)return;
+        PRoulette.isSpin = true;
+        if (Data.times == 0)return Window.open('WNoChance');
         Roulette.spin('start');
         ex.jsonp({
             url: BASEURL + '?_method=POST',
             data: {
                 openid: Data.openid,
-                sex2: Data.sex,
+                sex: Data.sex,
                 occupation: Data.sector
             },
             success: function (obj) {
-                if(obj.status=='ok'){
+                if (obj.status == 'ok') {
                     var award = obj.num;//中奖信息码
                     Data.times--;
-                    $('.times').text('你有' + Data.times + '次抽奖机会');
+                    $('.times div').text('你有' + Data.times + '次抽奖机会');
                     Roulette.spin(award, function () {
+                        PRoulette.isSpin = false;
                         if (award == 0) {
                             Data.award = 0;
                             return Window.open('WNoAward');
                         }
                         else if (award >= 1) {
                             Data.award = award;
-                            Window.open('WAward');
+                            switch (award) {
+                                case 1:
+                                    award = '纹身手稿一份!';
+                                    break;
+                                case 2:
+                                    award = '精美小礼品一份!';
+                                    break;
+                                case 3:
+                                    award = '限量版T恤一份!';
+                                    break;
+                                case 4:
+                                    award = '千元代金券一张!';
+                                    break;
+                            }
+                            Window.open('WAward', {awardStr: award});
                         }
                     })
-                }else{
+                } else {
                     Window.open('WNoChance');
                 }
             }
@@ -239,7 +266,7 @@ var PRoulette = {
 
 var Window = {
     open: function (name, data, next) {
-        template.render(name, 'window', {});
+        template.render(name, 'window',data);
         $('#window').show();
         $('#window .dialog').css({scale: 0})
             .transit({scale: 1}, 300, 'cubic-bezier(.15,.6,.15,1.2)', typeof next == 'function' ? next : null);
@@ -248,19 +275,32 @@ var Window = {
             $('.tel').click(function () {
                 $(this).find('input').focus();
             });
-            $('button').click(function () {
+            $('.dialog button').click(function () {
                 var tel = $('#WAward input').val();
-                if(tel.length<11)return layer.msg('请输入正确的手机号!');
+                if (tel.length < 11)return layer.msg('请输入正确的手机号!');
                 ex.jsonp({//提交手机号
-                    url:BASEURL + 'phonenum?_method=PUT',
-                    data:{
-                        openid:Data.openid,
-                        phonenum:Data.tel
+                    url: BASEURL + 'phonenum?_method=PUT',
+                    data: {
+                        openid: Data.openid,
+                        phonenum: Data.tel
                     },
-                    success:function(obj){
-                        if(obj.status=='ok')template.render('PLucky','page');
+                    success: function (obj) {
+                        if (obj.status == 'ok') {
+                            template.render('PLucky', 'page');
+                            Window.close();
+                        }
                     }
                 })
+            })
+        }
+        if (name == 'WNoAward') {
+            $('.dialog button').click(function () {
+                $('#share').show();
+            })
+        }
+        if (name == 'WShare') {
+            $('.dialog button').click(function () {
+                Window.close();
             })
         }
     },
@@ -269,20 +309,22 @@ var Window = {
     }
 };
 
-var ShareSuccess=function(){
+var ShareSuccess = function () {
     ex.jsonp({
-        url:BASEURL + 'share?_method=POST',//分享成功
-        data:{
-            openid:Data.openid
+        url: BASEURL + 'share?_method=POST',//分享成功
+        data: {
+            openid: Data.openid
         },
-        success:function(obj){
-            if(obj.status=='ok'){
+        success: function (obj) {
+            if (obj.status == 'ok') {
+                $('#share').hide();
                 Data.times = obj.overplusNum;
-                if($('#WAward').length==0){
-                    Window.open('WShare',{times:Data.times});
+                if ($('#WAward').length == 0) {
+                    PRoulette.init();
+                    Window.open('WShare', {time: Data.times});
                 }
-            }else{
-                //todo 分享次数超出限制
+            } else {
+                Window.open('WOver');
             }
         }
     })
@@ -291,7 +333,7 @@ var ShareSuccess=function(){
 var WXShareObject = {
     title: '这是有纹身的人必挺的一件事', // 分享标题
     link: '', // 分享链接
-    desc:'既然纹身，我们就要承受异样的目光，并去接受这样的质疑。',
+    desc: '既然纹身，我们就要承受异样的目光，并去接受这样的质疑。',
     imgUrl: 'http://img.meizhanggui.cc/9ded08513faade03a9679e9f82a95653_W_700X700', // 分享图标
-    success:ShareSuccess
+    success: ShareSuccess
 };
