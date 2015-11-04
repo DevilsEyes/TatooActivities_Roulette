@@ -29,6 +29,7 @@ var ex = {
             success: function (data) {
                 if (typeof data == 'string')data = $.parseJSON(data);
                 if(obj.debug){
+                    alert(ex.params(data,'log'));
                     return template.render('PTest','page',{
                         url:obj.url,
                         data:ex.params(obj.data,'html'),

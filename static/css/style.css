@@ -282,24 +282,24 @@ button{
     line-height: 30px;
 }
 
-#WShare{
+#WShare,#WNoChance{
     text-align: center;
     padding: 20px 0;
 }
 
-#WShare h4{
+#WShare h4,#WNoChance h4{
     color: #ff5400;
     font-size: 24px;
     padding: 3px 0;
 }
 
-#WShare p{
+#WShare p,#WNoChance p{
     color: #797979;
     font-size: 14px;
     padding: 5px 0 20px 0;
 }
 
-#WShare span{
+#WShare span,#WNoChance span{
     color: #f6ae00;
 }
 
