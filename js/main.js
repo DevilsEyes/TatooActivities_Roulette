@@ -150,7 +150,7 @@ var PWelcome = {
                     Data.times = obj.data.overplusNum;
 
                     debug(Data);
-                    
+
                     WXShareObject.link = location.origin + location.pathname + '?id=' +Data.openid;
                     wx.onMenuShareTimeline(WXShareObject);
                     wx.onMenuShareAppMessage(WXShareObject);
@@ -162,9 +162,9 @@ var PWelcome = {
                             sex: Data.sex,
                             sector: Data.sector
                         });
-                        $('.sex-male').click(this.E_SexMaleSelect);
-                        $('.sex-famale').click(this.E_SexFamaleSelect);
-                        $('button').click(this.E_SendInfo);
+                        $('.sex-male').click(PWelcome.E_SexMaleSelect);
+                        $('.sex-famale').click(PWelcome.E_SexFamaleSelect);
+                        $('button').click(PWelcome.E_SendInfo);
                         Scroller.init('.scroller');
                     }
                 }
