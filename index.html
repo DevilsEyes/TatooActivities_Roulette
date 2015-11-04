@@ -39,6 +39,7 @@
 <script type="text/template" data-page="WShare" data-role="window">
     <div id="WShare" class="dialog">
         <h4>分享成功!</h4>
+
         <p>您现在有<span>${times}</span>次抽奖机会了!</p>
         <button>知道了</button>
     </div>
@@ -110,14 +111,14 @@
 
 <script type="text/template" data-page="PLucky" data-role="page">
     <div id="PLucky" class="bg">
-            <img src="static/img/coffee.png">
+        <img src="static/img/coffee.png">
 
-            <p>恭喜您中奖！<br>
-                请您安心等待我们与您联系。</p>
-            <br>
+        <p>恭喜您中奖！<br>
+            请您安心等待我们与您联系。</p>
+        <br>
 
-            <p>分享到朋友圈<br>
-                可以再获得一次抽奖机会哦！</p>
+        <p>分享到朋友圈<br>
+            可以再获得一次抽奖机会哦！</p>
 
     </div>
 </script>
@@ -136,7 +137,11 @@
         </fieldset>
         <fieldset>
             <legend>RESPONSE</legend>
+            <!--if res-->
+            $${res}
+            <!--else-->
             No response
+            <!--/if-->
         </fieldset>
     </div>
 </script>
