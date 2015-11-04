@@ -28,14 +28,24 @@ var ex = {
             data: obj.data ? obj.data : null,
             success: function (data) {
                 if (typeof data == 'string')data = $.parseJSON(data);
+                if(obj.debug){
+                    return template.render('PTest','page',{
+                        url:obj.url,
+                        data:ex.params(obj.data,'html'),
+                        res:ex.params(data,'html')
+                    })
+                }
                 obj.success(data);
             },
             error: obj.error ? obj.error : function () {
                 layer.msg('您的网络连接不太顺畅哦!');
-                template.render('PTest','page',{
-                    url:obj.url,
-                    data:ex.params(obj.data,'html')
-                })
+                if(obj.debug){
+                    template.render('PTest','page',{
+                        url:obj.url,
+                        data:ex.params(obj.data,'html')
+                    })
+                }
+
             },
             beforeSend: obj.beforeSend ? obj.beforeSend : function () {
                 layer.load(2);
@@ -129,12 +139,12 @@ var PWelcome = {
         //todo 获取原有信息
         alert(g$url.param.code);
         ex.jsonp({
+            debug:true,
             url:'http://activity.meizhanggui.cc/weixinAuth2/userInfo?_method=GET',
             data:{
                 code:g$url.param.code
             },
             success:function(obj){
-                return template.render('PTest','page',{data:obj});
                 if (obj.success){
                     Data.openid = obj.data.openid;
                     Data.sex = obj.data.sex;
